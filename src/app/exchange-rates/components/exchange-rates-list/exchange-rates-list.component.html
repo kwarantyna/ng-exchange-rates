@@ -1,0 +1,44 @@
+<h3>Lista kursów walut:</h3>
+<p-table #exchangeRatesTable [value]="exchangeRates" styleClass="p-datatable-gridlines" [paginator]="true"
+         [showCurrentPageReport]="true" [loading]="loading"
+         [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+         [globalFilterFields]="['code', 'currency', 'mid']"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="caption">
+        <div class="filter-wrapper">
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(exchangeRatesTable, calendar)"></button>
+            <div>
+                <p-calendar #calendar [(ngModel)]="value" dateFormat="yy-mm-dd" placeholder="YYYY-MM-DD"
+                            [showIcon]="true" inputId="icon" (ngModelChange)="applyingFilter()"
+                            [monthNavigator]="true" [yearNavigator]="true" yearRange="1990:2030"></p-calendar>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="code">
+                Symbol waluty
+                <p-sortIcon field="code"></p-sortIcon>
+                <p-columnFilter type="text" field="code" display="menu" class="ml-auto"></p-columnFilter>
+            </th>
+            <th pSortableColumn="currency">
+                Waluta
+                <p-sortIcon field="currency"></p-sortIcon>
+                <p-columnFilter type="text" field="currency" display="menu" class="ml-auto"></p-columnFilter>
+            </th>
+            <th pSortableColumn="mid">
+                Kurs waluty
+                <p-sortIcon field="mid"></p-sortIcon>
+                <p-columnFilter type="text" field="mid" display="menu" class="ml-auto"></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-exchangeRate>
+        <tr>
+            <td>{{exchangeRate.code}}</td>
+            <td>{{exchangeRate.currency}}</td>
+            <td>{{exchangeRate.mid}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-toast position="bottom-center"></p-toast>

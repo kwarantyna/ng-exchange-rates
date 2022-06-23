@@ -1,0 +1,7 @@
+<app-exchange-rates-list></app-exchange-rates-list>
+<h3>Wybierz widok</h3>
+<p-selectButton [options]="themes" [(ngModel)]="selectedTheme" (onChange)="switchTheme()">
+    <ng-template let-item>
+        {{item.name}}
+    </ng-template>
+</p-selectButton>
